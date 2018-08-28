@@ -90,7 +90,7 @@ export const createPool = async opts => {
   const pool = createLightningPool(factory, options)
   Object.defineProperty(pool, 'use', { value: fn => use(fn, pool) })
   Object.defineProperty(pool, 'terminate', { value: fn => terminate(pool, fn) })
-  process.on('SIGINT', () => terminate(pool))
+  process.on('SIGINT', pool.terminate)
   return pool
 }
 

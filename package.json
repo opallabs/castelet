@@ -2,12 +2,13 @@
   "name": "castelet",
   "version": "0.0.1",
   "description": "A generic puppeteer pool",
-  "main": "index.js",
+  "main": "index.min.js",
   "author": "John Bragg - Opal <jbragg@workwithopal.com>",
   "license": "MIT",
   "repository": "https://github.com/opallabs/castelet",
   "scripts": {
     "coverage": "nyc check-coverage --lines 100 --functions 100 --branches 100",
+    "prepublish": "babel index.js > index.min.js",
     "lint": "eslint index.js",
     "test": "nyc ava",
     "test:ci": "nyc ava --tap | tap-xunit",
@@ -19,6 +20,7 @@
     ]
   },
   "dependencies": {
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
     "debug": "^3.1.0",
     "lightning-pool": "^2.0.1",
     "puppeteer": "^1.7.0"
@@ -31,7 +33,7 @@
     "@babel/register": "7.0.0-rc.1",
     "ava": "1.0.0-beta.7",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
-    "codecov": "^3.0.4",
+    "babel-preset-minify": "^0.4.3",
     "eslint": "^5.4.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",

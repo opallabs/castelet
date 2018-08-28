@@ -10,8 +10,8 @@ if (process.env.NODE_ENV === 'test') {
   debug('using test launcher (mock)')
   launcher = () => ({
     launched: true,
-    close: async () => { return true },
-    pages: async () => { return [] },
+    close: async () => true,
+    pages: async () => [],
   })
 }
 

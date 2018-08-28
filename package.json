@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": "https://github.com/opallabs/castelet",
   "scripts": {
-    "coverage": "nyc check-coverage --lines 100 --functions 100 --branches 100",
+    "coverage": "nyc check-coverage --lines 95 --functions 85 --branches 95",
     "prepublish": "babel index.js > index.min.js",
     "lint": "eslint index.js",
     "test": "nyc ava",

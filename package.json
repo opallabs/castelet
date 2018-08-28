@@ -8,6 +8,7 @@
   "repository": "https://github.com/opallabs/castelet",
   "scripts": {
     "codecov": "nyc report --reporter=lcov > coverage.lcov && codecov",
+    "lint": "eslint index.js",
     "test": "nyc ava",
     "test:verbose": "nyc ava --verbose"
   },
@@ -30,6 +31,9 @@
     "ava": "1.0.0-beta.7",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "codecov": "^3.0.4",
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
     "hothouse": "^0.4.13",
     "npm-audit-ci": "^1.0.1",
     "nyc": "^13.0.1",

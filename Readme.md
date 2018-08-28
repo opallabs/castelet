@@ -4,7 +4,7 @@
 
 #### It's as simple as it gets
 
-It's just a wrapping of [lightning-pool](https://github.com/panates/lightning-pool) around the latest [puppeteer](https://github.com/GoogleChrome/puppeteer).
+It's just a wrapping of [lightning-pool](https://github.com/panates/lightning-pool) around [puppeteer](https://github.com/GoogleChrome/puppeteer), with a few additions.
 
 To keep with the design of [puppeteer-pool](https://github.com/latesh/puppeteer-pool), it adds a `use` method, that can be used just like theirs:
 

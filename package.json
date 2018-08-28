@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "A generic puppeteer pool",
   "main": "index.min.js",
-  "author": "John Bragg - Opal <jbragg@workwithopal.com>",
+  "author": "John Bragg @ Opal Labs <jbragg@workwithopal.com>",
   "license": "MIT",
   "repository": "https://github.com/opallabs/castelet",
   "scripts": {

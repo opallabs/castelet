@@ -5,6 +5,7 @@
   "main": "index.js",
   "author": "John Bragg - Opal <jbragg@workwithopal.com>",
   "license": "CC0",
+  "repository": "https://github.com/opallabs/castelet",
   "scripts": {
     "test": "ava"
   },
@@ -25,6 +26,7 @@
     "@babel/preset-typescript": "7.0.0-rc.1",
     "@babel/register": "7.0.0-rc.1",
     "ava": "1.0.0-beta.7",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2"
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "hothouse": "^0.4.13"
   }
 }

@@ -1,0 +1,165 @@
+defaults: &defaults
+  working_directory: ~/castelet
+  docker:
+    - image: node
+
+version: 2
+jobs:
+
+  checkout:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          name: Restore repo cache
+          keys:
+            - v1-castelet-repo-{{ .Branch }}-{{ .Revision }}
+      - checkout
+      - save_cache:
+          name: Save repo cache
+          key: v1-castelet-repo-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - ~/
+
+  setup:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          name: Restore repo cache
+          key: v1-castelet-repo-{{ .Branch }}-{{ .Revision }}
+      - restore_cache:
+          name: Restore setup cache
+          keys:
+            - v1-castelet-setup-{{ .Branch }}-{{ .Revision }}
+      - run:
+          name: Yarn install
+          command: |
+            yarn config set cache-folder ./.yarn-cache
+            yarn
+      - save_cache:
+          name: Save setup cache
+          key: v1-castelet-setup-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - ./.yarn-cache
+            - node_modules
+
+  update-dependencies:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          name: Restore repo cache
+          key: v1-castelet-repo-{{ .Branch }}-{{ .Revision }}
+      - restore_cache:
+          name: Restore setup cache
+          key: v1-castelet-setup-{{ .Branch }}-{{ .Revision }}
+      - run:
+          name: Update dependencies if possible
+          command: |
+            yarn global add hothouse
+            yarn
+            hothouse -t $GH_AUTH_TOKEN
+
+  lint:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          name: Restore repo cache
+          key: v1-castelet-repo-{{ .Branch }}-{{ .Revision }}
+      - restore_cache:
+          name: Restore setup cache
+          key: v1-castelet-setup-{{ .Branch }}-{{ .Revision }}
+      - run:
+          name: Lint JS and CSS
+          command: yarn lint:verbose
+
+  test:
+    <<: *defaults
+    environment:
+      MOCHA_FILE: "$CIRCLE_TEST_REPORTS/test-results.xml"
+    steps:
+      - restore_cache:
+          name: Restore repo cache
+          key: v1-castelet-repo-{{ .Branch }}-{{ .Revision }}
+      - restore_cache:
+          name: Restore setup cache
+          key: v1-castelet-setup-{{ .Branch }}-{{ .Revision }}
+      - run:
+          name: Test code
+          command: |
+            mkdir -p ~/reports
+            nyc ava --tap | tap-xunit > ~/reports/ava.xml
+          when: always
+      - store_test_results:
+          path: ~/reports
+      - store_artifacts:
+          path: ~/reports
+      - save_cache:
+          name: Save coverage cache
+          key: v1-castelet-coverage-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - coverage
+            - .nyc_output
+
+  coverage:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          name: Restore repo cache
+          key: v1-castelet-repo-{{ .Branch }}-{{ .Revision }}
+      - restore_cache:
+          name: Restore setup cache
+          key: v1-castelet-setup-{{ .Branch }}-{{ .Revision }}
+      - restore_cache:
+          name: Restore coverage cache
+          key: v1-castelet-coverage-{{ .Branch }}-{{ .Revision }}
+      - run:
+          name: Report Coverage to CodeCov
+          command: yarn codecov
+
+  security:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          name: Restore repo cache
+          key: v1-castelet-repo-{{ .Branch }}-{{ .Revision }}
+      - run:
+          name: Check for vulnerabilities
+          command: |
+            npm i
+            npx npm-audit-ci -h && echo 'No high-level vulnerabilities found. Nice work!'
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - checkout
+      - setup:
+          requires:
+            - checkout
+      - lint:
+          requires:
+            - setup
+      - test:
+          requires:
+            - setup
+      - coverage:
+          requires:
+            - test
+      - security:
+          requires:
+            - setup
+  e2e:
+    jobs:
+      - update-dependencies
+    triggers:
+      - schedule:
+          cron: "0 0 * * *" # Every day at midnight Universal time
+          filters:
+            branches:
+              only:
+                - master
+
+experimental:
+  notify:
+    branches:
+      only:
+        - master

@@ -69,7 +69,7 @@ jobs:
           key: v1-castelet-setup-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Lint JS and CSS
-          command: yarn lint:verbose
+          command: yarn lint
 
   test:
     <<: *defaults

@@ -4,9 +4,20 @@ const debug = require('debug')('castelet')
 
 const browsers = new Set()
 
+let launcher = launch
+
+if (process.env.NODE_ENV === 'test') {
+  debug('using test launcher (mock)')
+  launcher = () => ({
+    launched: true,
+    close: async () => { return true },
+    pages: async () => { return [] },
+  })
+}
+
 const create = async opts => {
   debug('create')
-  const browser = await launch(opts)
+  const browser = await launcher(opts)
   browsers.add(browser)
   debug(`browsers: ${browsers.size}`)
   return browser

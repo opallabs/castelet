@@ -19,6 +19,13 @@
     "coverage": "nyc check-coverage --lines 95 --functions 85 --branches 95",
     "prepublish": "babel index.js > index.min.js",
     "lint": "eslint index.js",
+    "release:alpha": "release-it major --preRelease=alpha",
+    "release:beta": "release-it major --preRelease=beta",
+    "release:rc": "release-it major --preRelease=rc",
+    "release:patch": "release-it patch",
+    "release:minor": "release-it minor",
+    "release:major": "release-it major",
+    "release": "release-it patch",
     "test": "nyc ava",
     "test:ci": "nyc ava --tap | tap-xunit",
     "test:verbose": "nyc ava --verbose"
@@ -49,6 +56,7 @@
     "hothouse": "^0.4.13",
     "npm-audit-ci": "^1.0.1",
     "nyc": "^13.0.1",
+    "release-it": "^7.6.0",
     "tap-xunit": "^2.3.0"
   }
 }

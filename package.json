@@ -10,6 +10,7 @@
     "codecov": "nyc report --reporter=lcov > coverage.lcov && codecov",
     "lint": "eslint index.js",
     "test": "nyc ava",
+    "test:ci": "nyc ava --tap | tap-xunit",
     "test:verbose": "nyc ava --verbose"
   },
   "ava": {

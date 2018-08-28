@@ -86,7 +86,7 @@ jobs:
           name: Test code
           command: |
             mkdir -p ~/reports
-            nyc ava --tap | tap-xunit > ~/reports/ava.xml
+            yarn --silent test:ci > ~/reports/ava.xml
           when: always
       - store_test_results:
           path: ~/reports

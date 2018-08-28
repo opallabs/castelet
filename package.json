@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "coverage": "nyc check-coverage --lines 95 --functions 85 --branches 95",
-    "prepublish": "babel index.js > index.min.js",
+    "prepare": "babel index.js > index.min.js",
     "lint": "eslint index.js",
     "release:alpha": "release-it major --preRelease=alpha",
     "release:beta": "release-it major --preRelease=beta",

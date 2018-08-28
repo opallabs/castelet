@@ -6,6 +6,15 @@
   "author": "John Bragg @ Opal Labs <jbragg@workwithopal.com>",
   "license": "MIT",
   "repository": "https://github.com/opallabs/castelet",
+  "keywords": [
+    "castelet",
+    "puppeteer",
+    "chrome",
+    "headless",
+    "pool",
+    "pooling",
+    "lightning-pool"
+  ],
   "scripts": {
     "coverage": "nyc check-coverage --lines 95 --functions 85 --branches 95",
     "prepublish": "babel index.js > index.min.js",

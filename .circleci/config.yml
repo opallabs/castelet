@@ -113,7 +113,7 @@ jobs:
           key: v1-castelet-coverage-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Report Coverage to CodeCov
-          command: yarn codecov
+          command: yarn coverage
 
   security:
     <<: *defaults

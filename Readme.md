@@ -2,6 +2,8 @@
 
 ### Easy, async Puppeteer Pool
 
+[![CircleCI](https://circleci.com/gh/opallabs/castelet/tree/master.svg?style=svg)](https://circleci.com/gh/opallabs/castelet/tree/master)
+
 #### It's as simple as it gets
 
 It's just a wrapping of [lightning-pool](https://github.com/panates/lightning-pool) around [puppeteer](https://github.com/GoogleChrome/puppeteer), with a few additions.

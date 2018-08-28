@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": "https://github.com/opallabs/castelet",
   "scripts": {
-    "codecov": "nyc report --reporter=lcov > coverage.lcov && codecov",
+    "coverage": "nyc check-coverage --lines 100 --functions 100 --branches 100",
     "lint": "eslint index.js",
     "test": "nyc ava",
     "test:ci": "nyc ava --tap | tap-xunit",

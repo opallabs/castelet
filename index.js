@@ -58,21 +58,29 @@ const defaults = {
 }
 debug('defaults', defaults)
 
-const use = async fn => {
+const use = async (fn, pool) => {
   debug('use')
-  const browser = await this.acquire()
+  const browser = await pool.acquire()
   let ret
   try {
     ret = await fn(browser)
     debug('successful execution')
   } catch (e) {
     debug('error', e)
-    await this.release(browser)
+    await pool.release(browser)
     throw e
   }
-  await this.release(browser)
+  await pool.release(browser)
   debug('released')
   return ret
+}
+
+const terminate = (pool, fn) => {
+  debug('terminate')
+  pool.close(true)
+  if (fn) {
+    fn()
+  }
 }
 
 export const createPool = async opts => {
@@ -80,11 +88,9 @@ export const createPool = async opts => {
   const options = { ...defaults, ...opts }
   debug(options)
   const pool = createLightningPool(factory, options)
-  Object.defineProperty(pool, 'use', { value: use.bind(pool) })
-  process.on('SIGINT', () => {
-    debug('sigint')
-    pool.close(true)
-  })
+  Object.defineProperty(pool, 'use', { value: fn => use(fn, pool) })
+  Object.defineProperty(pool, 'terminate', { value: fn => terminate(pool, fn) })
+  process.on('SIGINT', () => terminate(pool))
   return pool
 }
 

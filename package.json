@@ -35,10 +35,12 @@
       "@babel/register"
     ]
   },
+  "peerDependencies": {
+    "puppeteer": ">=0.12.0"
+  },
   "dependencies": {
     "debug": "^3.1.0",
-    "lightning-pool": "^2.0.1",
-    "puppeteer": "^1.7.0"
+    "lightning-pool": "^2.0.1"
   },
   "devDependencies": {
     "@babel/cli": "7.0.0-rc.1",

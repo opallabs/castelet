@@ -214,10 +214,6 @@
   version "7.0.0-rc.1"
   resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-7.0.0-rc.1.tgz#3e277eae59818e7d4caf4174f58a7a00d441336e"
 
-"@babel/helper-plugin-utils@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@babel/helper-plugin-utils/-/helper-plugin-utils-7.0.0.tgz#bbb3fbee98661c569034237cc03967ba99b4f250"
-
 "@babel/helper-regex@7.0.0-rc.1":
   version "7.0.0-rc.1"
   resolved "https://registry.yarnpkg.com/@babel/helper-regex/-/helper-regex-7.0.0-rc.1.tgz#591bf828846d91fea8c93d1bf3030bd99dbd94ce"
@@ -323,13 +319,6 @@
     "@babel/helper-plugin-utils" "7.0.0-rc.1"
     "@babel/plugin-syntax-object-rest-spread" "7.0.0-rc.1"
 
-"@babel/plugin-proposal-object-rest-spread@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-object-rest-spread/-/plugin-proposal-object-rest-spread-7.0.0.tgz#9a17b547f64d0676b6c9cecd4edf74a82ab85e7e"
-  dependencies:
-    "@babel/helper-plugin-utils" "^7.0.0"
-    "@babel/plugin-syntax-object-rest-spread" "^7.0.0"
-
 "@babel/plugin-proposal-optional-catch-binding@7.0.0-rc.1":
   version "7.0.0-rc.1"
   resolved "https://registry.yarnpkg.com/@babel/plugin-proposal-optional-catch-binding/-/plugin-proposal-optional-catch-binding-7.0.0-rc.1.tgz#4ee80c9e4b6feb4c0c737bd996da3ee3fb9837d2"
@@ -357,21 +346,9 @@
   dependencies:
     "@babel/helper-plugin-utils" "7.0.0-rc.1"
 
-"@babel/plugin-syntax-object-rest-spread@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-object-rest-spread/-/plugin-syntax-object-rest-spread-7.0.0.tgz#37d8fbcaf216bd658ea1aebbeb8b75e88ebc549b"
-  dependencies:
-    "@babel/helper-plugin-utils" "^7.0.0"
-
 "@babel/plugin-syntax-optional-catch-binding@7.0.0-rc.1":
   version "7.0.0-rc.1"
   resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-optional-catch-binding/-/plugin-syntax-optional-catch-binding-7.0.0-rc.1.tgz#c125fedf2fe59e4b510c202b1a912634d896fbb8"
-  dependencies:
-    "@babel/helper-plugin-utils" "7.0.0-rc.1"
-
-"@babel/plugin-syntax-typescript@7.0.0-rc.1":
-  version "7.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-syntax-typescript/-/plugin-syntax-typescript-7.0.0-rc.1.tgz#f1e0afa67b62aa9659cf9995a8a46f0638faa05f"
   dependencies:
     "@babel/helper-plugin-utils" "7.0.0-rc.1"
 
@@ -555,13 +532,6 @@
   dependencies:
     "@babel/helper-plugin-utils" "7.0.0-rc.1"
 
-"@babel/plugin-transform-typescript@7.0.0-rc.1":
-  version "7.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/@babel/plugin-transform-typescript/-/plugin-transform-typescript-7.0.0-rc.1.tgz#5b9726c6f9ab1f8f0abd1971577da5accd232dbc"
-  dependencies:
-    "@babel/helper-plugin-utils" "7.0.0-rc.1"
-    "@babel/plugin-syntax-typescript" "7.0.0-rc.1"
-
 "@babel/plugin-transform-unicode-regex@7.0.0-rc.1":
   version "7.0.0-rc.1"
   resolved "https://registry.yarnpkg.com/@babel/plugin-transform-unicode-regex/-/plugin-transform-unicode-regex-7.0.0-rc.1.tgz#b6c77bdb9a2823108210a174318ddd3c1ab6f3ce"
@@ -614,13 +584,6 @@
     invariant "^2.2.2"
     js-levenshtein "^1.1.3"
     semver "^5.3.0"
-
-"@babel/preset-typescript@7.0.0-rc.1":
-  version "7.0.0-rc.1"
-  resolved "https://registry.yarnpkg.com/@babel/preset-typescript/-/preset-typescript-7.0.0-rc.1.tgz#bd22fc7158fde7c1dd5bb7853246b5cf5a801c9c"
-  dependencies:
-    "@babel/helper-plugin-utils" "7.0.0-rc.1"
-    "@babel/plugin-transform-typescript" "7.0.0-rc.1"
 
 "@babel/register@7.0.0-rc.1":
   version "7.0.0-rc.1"

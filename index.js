@@ -15,8 +15,8 @@ if (process.env.NODE_ENV === 'test') {
   })
 }
 
-const create = async opts => {
-  debug('create')
+const create = opts => async () => {
+  debug('create', opts)
   const browser = await launcher(opts)
   browsers.add(browser)
   debug(`browsers: ${browsers.size}`)
@@ -43,18 +43,10 @@ const validate = async () => {
   return true
 }
 
-const factory = {
-  create,
-  destroy,
-  reset,
-  validate,
-}
-
 const defaults = {
   max: 1,
   min: 1,
   minIdle: 1,
-  puppeteerArgs: [],
 }
 debug('defaults', defaults)
 
@@ -87,6 +79,12 @@ export const createPool = async opts => {
   debug('create pool')
   const options = { ...defaults, ...opts }
   debug(options)
+  const factory = {
+    create: create(options.puppeteerOptions),
+    destroy,
+    reset,
+    validate,
+  }
   const pool = createLightningPool(factory, options)
   Object.defineProperty(pool, 'use', { value: fn => use(fn, pool) })
   Object.defineProperty(pool, 'terminate', { value: fn => terminate(pool, fn) })

@@ -124,6 +124,8 @@ jobs:
           name: Release new patch version
           command: |
             git checkout .
+            git config user.email "jbragg@workwithopal.com"
+            git config user.name "John Bragg"
             yarn release:ci
 
   update-dependencies:

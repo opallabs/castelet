@@ -117,6 +117,9 @@ jobs:
       - restore_cache:
           name: Restore repo cache
           key: v1-castelet-repo-{{ .Branch }}-{{ .Revision }}
+      - restore_cache:
+          name: Restore setup cache
+          key: v1-castelet-setup-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Release new patch version
           command: yarn release:ci

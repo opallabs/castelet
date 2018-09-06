@@ -122,7 +122,9 @@ jobs:
           key: v1-castelet-setup-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Release new patch version
-          command: yarn release:ci
+          command: |
+            git stash
+            yarn release:ci
 
   update-dependencies:
     <<: *defaults

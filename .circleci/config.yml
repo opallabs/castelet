@@ -123,7 +123,7 @@ jobs:
       - run:
           name: Release new patch version
           command: |
-            git stash
+            git checkout .
             yarn release:ci
 
   update-dependencies:

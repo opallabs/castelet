@@ -34,7 +34,7 @@ jobs:
           name: Yarn install
           command: |
             yarn config set cache-folder ./.yarn-cache
-            yarn
+            yarn --frozen-lockfile
       - save_cache:
           name: Save setup cache
           key: v1-castelet-setup-{{ .Branch }}-{{ .Revision }}

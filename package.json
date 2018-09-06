@@ -26,6 +26,7 @@
     "release:minor": "release-it minor",
     "release:major": "release-it major",
     "release": "release-it patch",
+    "release:ci": "release-it -n patch",
     "test": "nyc ava",
     "test:ci": "nyc ava --tap | tap-xunit",
     "test:verbose": "nyc ava --verbose"

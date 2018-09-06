@@ -111,6 +111,16 @@ jobs:
             npm i
             npx npm-audit-ci -h && echo 'No high-level vulnerabilities found. Nice work!'
 
+  publish:
+    <<: *defaults
+    steps:
+      - restore_cache:
+          name: Restore repo cache
+          key: v1-castelet-repo-{{ .Branch }}-{{ .Revision }}
+      - run:
+          name: Release new patch version
+          command: yarn release:ci
+
   update-dependencies:
     <<: *defaults
     steps:
@@ -144,6 +154,15 @@ workflows:
       - security:
           requires:
             - setup
+      - publish:
+          requires:
+            - security
+            - lint
+            - coverage
+          filters:
+            branches:
+              only: master
+
   e2e:
     jobs:
       - update-dependencies

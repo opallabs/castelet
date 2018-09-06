@@ -11,36 +11,22 @@ jobs:
     steps:
       - restore_cache:
           name: Restore repo cache
-          keys:
-            - v1-castelet-repo-{{ .Branch }}-{{ .Revision }}
+          key: v1-castelet-repo-{{ .Branch }}-{{ .Revision }}
       - checkout
+      - run:
+          name: Set up npm, packages, workspace, git
+          command: |
+            echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+            git config user.email "jbragg@workwithopal.com"
+            git config user.name "John Bragg"
+            yarn config set cache-folder ./.yarn-cache
+            yarn --frozen-lockfile
+            git checkout .
       - save_cache:
           name: Save repo cache
           key: v1-castelet-repo-{{ .Branch }}-{{ .Revision }}
           paths:
             - ~/
-
-  setup:
-    <<: *defaults
-    steps:
-      - restore_cache:
-          name: Restore repo cache
-          key: v1-castelet-repo-{{ .Branch }}-{{ .Revision }}
-      - restore_cache:
-          name: Restore setup cache
-          keys:
-            - v1-castelet-setup-{{ .Branch }}-{{ .Revision }}
-      - run:
-          name: Yarn install
-          command: |
-            yarn config set cache-folder ./.yarn-cache
-            yarn --frozen-lockfile
-      - save_cache:
-          name: Save setup cache
-          key: v1-castelet-setup-{{ .Branch }}-{{ .Revision }}
-          paths:
-            - ./.yarn-cache
-            - node_modules
 
   lint:
     <<: *defaults
@@ -48,9 +34,6 @@ jobs:
       - restore_cache:
           name: Restore repo cache
           key: v1-castelet-repo-{{ .Branch }}-{{ .Revision }}
-      - restore_cache:
-          name: Restore setup cache
-          key: v1-castelet-setup-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Lint JS and CSS
           command: yarn lint
@@ -63,9 +46,6 @@ jobs:
       - restore_cache:
           name: Restore repo cache
           key: v1-castelet-repo-{{ .Branch }}-{{ .Revision }}
-      - restore_cache:
-          name: Restore setup cache
-          key: v1-castelet-setup-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Test code
           command: |
@@ -89,9 +69,6 @@ jobs:
       - restore_cache:
           name: Restore repo cache
           key: v1-castelet-repo-{{ .Branch }}-{{ .Revision }}
-      - restore_cache:
-          name: Restore setup cache
-          key: v1-castelet-setup-{{ .Branch }}-{{ .Revision }}
       - restore_cache:
           name: Restore coverage cache
           key: v1-castelet-coverage-{{ .Branch }}-{{ .Revision }}
@@ -117,16 +94,9 @@ jobs:
       - restore_cache:
           name: Restore repo cache
           key: v1-castelet-repo-{{ .Branch }}-{{ .Revision }}
-      - restore_cache:
-          name: Restore setup cache
-          key: v1-castelet-setup-{{ .Branch }}-{{ .Revision }}
       - run:
           name: Release new patch version
-          command: |
-            git checkout .
-            git config user.email "jbragg@workwithopal.com"
-            git config user.name "John Bragg"
-            yarn release:ci
+          command: yarn release:ci
 
   update-dependencies:
     <<: *defaults
@@ -146,21 +116,18 @@ workflows:
   build_and_test:
     jobs:
       - checkout
-      - setup:
-          requires:
-            - checkout
       - lint:
           requires:
-            - setup
+            - checkout
       - test:
           requires:
-            - setup
+            - checkout
       - coverage:
           requires:
             - test
       - security:
           requires:
-            - setup
+            - checkout
       - publish:
           requires:
             - security
@@ -180,9 +147,3 @@ workflows:
             branches:
               only:
                 - master
-
-experimental:
-  notify:
-    branches:
-      only:
-        - master

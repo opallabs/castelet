@@ -42,24 +42,6 @@ jobs:
             - ./.yarn-cache
             - node_modules
 
-  update-dependencies:
-    <<: *defaults
-    steps:
-      - restore_cache:
-          name: Restore repo cache
-          key: v1-castelet-repo-{{ .Branch }}-{{ .Revision }}
-      - restore_cache:
-          name: Restore setup cache
-          key: v1-castelet-setup-{{ .Branch }}-{{ .Revision }}
-      - run:
-          name: Update dependencies if possible
-          command: |
-            yarn global add hothouse
-            yarn
-            git config user.email "jbragg@workwithopal.com"
-            git config user.name "John Bragg"
-            hothouse -t $GH_AUTH_TOKEN
-
   lint:
     <<: *defaults
     steps:
@@ -129,6 +111,19 @@ jobs:
             npm i
             npx npm-audit-ci -h && echo 'No high-level vulnerabilities found. Nice work!'
 
+  update-dependencies:
+    <<: *defaults
+    steps:
+      - checkout
+      - run:
+          name: Update dependencies if possible
+          command: |
+            yarn global add hothouse
+            yarn
+            git config user.email "jbragg@workwithopal.com"
+            git config user.name "John Bragg"
+            hothouse -t $GH_AUTH_TOKEN
+
 workflows:
   version: 2
   build_and_test:
@@ -154,7 +149,7 @@ workflows:
       - update-dependencies
     triggers:
       - schedule:
-          cron: "0 0 * * *" # Every day at midnight Universal time
+          cron: "0,6 0 * * *"
           filters:
             branches:
               only:

@@ -58,7 +58,7 @@
     "npm-audit-ci": "^1.0.1",
     "nyc": "^13.0.1",
     "puppeteer": "^1.7.0",
-    "release-it": "^7.6.0",
+    "release-it": "^8.1.0",
     "tap-xunit": "^2.3.0"
   }
 }

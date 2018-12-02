@@ -130,21 +130,21 @@ workflows:
       - security:
           requires:
             - checkout
-      - publish:
-          requires:
-            - security
-            - lint
-            - coverage
-          filters:
-            branches:
-              only: master
+#      - publish:
+#          requires:
+#            - security
+#            - lint
+#            - coverage
+#          filters:
+#            branches:
+#              only: master
 
   e2e:
     jobs:
       - update-dependencies
     triggers:
       - schedule:
-          cron: "0,6 0 * * *"
+          cron: "6 0 1 * *"
           filters:
             branches:
               only:

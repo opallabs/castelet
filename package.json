@@ -1,6 +1,6 @@
 {
   "name": "castelet",
-  "version": "1.1.71",
+  "version": "1.1.72",
   "description": "A generic puppeteer pool",
   "main": "index.min.js",
   "author": "John Bragg @ Opal Labs <jbragg@workwithopal.com>",
